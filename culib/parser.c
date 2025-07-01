@@ -38,13 +38,25 @@ result* evaluate(const char* expression) {
     char* operators = (char*) calloc(1, sizeof(char));
     unsigned int noo = 0;
 
-    if (numbers == NULL) {
+    if (numbers == NULL || operators == NULL) {
+        free(dummy);
+        free(operators);
+        free(numbers);
         return_val.exit_code = 1; // Memory allocation error
         return &return_val;
     }
 
     // We have to now parse the expression and get all the numbers and operators
     char* catcher = (char*) calloc(MAXIMUM_NUMBER_SIZE, sizeof(char));
+    if (catcher == NULL) {
+        free(catcher);
+        free(operators);
+        free(dummy);
+        free(numbers);
+        return_val.exit_code = 1; // Memory allocation error
+        return &return_val;
+    }
+
     for (size_t i = 0; i < strlen(expression); i++) {
         char c = expression[i];
         if (charisdigit(c) || c == '.') {
