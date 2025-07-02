@@ -23,6 +23,7 @@ void char_strcat(char* string, char character) {
     strcat(string, end);
 }
 
+// I realised this after I finished the code but we don't need to return the pointer of the result since its a static object, the object can simply be return as it is.
 result* evaluate(const char* expression) {
     static result return_val = {.value = 0.0f, .exit_code = 0};
     if (expression == NULL || strlen(expression) == 0) return NULL;
